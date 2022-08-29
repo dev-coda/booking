@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
+import Booker from "./components/Booker";
+import logo from "./media/Medhammer_logo.png";
+import { useState } from "react";
 
 function App() {
+  const [token, setToken] = useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "1rem",
+        }}
+      >
+        <img src={logo} alt="logo Medhammer" style={{ maxWidth: "150px" }} />
+        <h1>Reservas Medhammer</h1>
+      </div>
+
+      <Router>
+        <Routes>
+          <Route path="/" element={!token ? <Login /> : <Booker />} />
+          <Route path="login" element={<Login />}></Route>
+          <Route
+            path="booker"
+            element={!token ? <Login /> : <Booker />}
+          ></Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
